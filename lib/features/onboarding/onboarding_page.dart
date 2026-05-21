@@ -24,6 +24,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
   String? _selectedCondition;
 
   @override
+  void initState() {
+    super.initState();
+    // Cada vez que el usuario escribe, se reevalúa el botón
+    _nameController.addListener(() => setState(() {}));
+    _ageController.addListener(() => setState(() {}));
+  }
+
+  @override
   void dispose() {
     _pageController.dispose();
     _nameController.dispose();
@@ -34,8 +42,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   bool get _canAdvance {
     if (_currentPage == 2) return _selectedCondition != null;
     if (_currentPage == 3) {
-      return _nameController.text.trim().isNotEmpty &&
-          int.tryParse(_ageController.text) != null;
+      final name = _nameController.text.trim();
+      final age = int.tryParse(_ageController.text.trim());
+      return name.isNotEmpty && age != null && age > 0 && age < 120;
     }
     return true;
   }
@@ -54,7 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Future<void> _finish() async {
     await _prefs.saveUserProfile(
       name: _nameController.text.trim(),
-      age: int.parse(_ageController.text),
+      age: int.parse(_ageController.text.trim()),
       condition: _selectedCondition!,
     );
     await _prefs.setOnboardingCompleted();
@@ -87,6 +96,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 }),
               ),
             ),
+
             // Páginas
             Expanded(
               child: PageView(
@@ -107,6 +117,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ],
               ),
             ),
+
             // Botón inferior
             Padding(
               padding: const EdgeInsets.all(24),
