@@ -1,0 +1,58 @@
+[
+  {
+    "id": "rh1",
+    "category": "alimentacion",
+    "title": "Menos sal, más sabor",
+    "body": "Condimenta con limón, ajo, orégano o perejil en lugar de sal. El paladar se adapta en 2 a 3 semanas y empezarás a disfrutar más los sabores naturales.",
+    "icon": "restaurant"
+  },
+  {
+    "id": "rh2",
+    "category": "alimentacion",
+    "title": "Cuidado con los procesados",
+    "body": "El pan, embutidos y conservas tienen alto contenido de sodio oculto. Lee las etiquetas y prefiere versiones bajas en sodio.",
+    "icon": "restaurant"
+  },
+  {
+    "id": "rh3",
+    "category": "alimentacion",
+    "title": "Potasio como aliado",
+    "body": "El plátano, la palta y las espinacas son ricos en potasio, que ayuda a contrarrestar el efecto del sodio en la presión arterial.",
+    "icon": "restaurant"
+  },
+  {
+    "id": "rh4",
+    "category": "ejercicio",
+    "title": "Ejercicio aeróbico suave",
+    "body": "Caminar 30 minutos a paso moderado, 5 días a la semana, puede reducir la presión sistólica entre 4 y 9 mmHg. Es tan efectivo como algunos medicamentos.",
+    "icon": "directions_walk"
+  },
+  {
+    "id": "rh5",
+    "category": "ejercicio",
+    "title": "Evita esfuerzos bruscos",
+    "body": "Evita levantar peso muy pesado o ejercicios de alta intensidad sin preparación. Aumenta la intensidad gradualmente y siempre con calentamiento previo.",
+    "icon": "directions_walk"
+  },
+  {
+    "id": "rh6",
+    "category": "hidratacion",
+    "title": "Hidratación constante",
+    "body": "Estar bien hidratado ayuda a que el corazón bombee sangre con menos esfuerzo. Toma agua regularmente, no solo cuando tengas sed.",
+    "icon": "water_drop"
+  },
+  {
+    "id": "rh7",
+    "category": "bienestar",
+    "title": "Técnicas de relajación",
+    "body": "La respiración diafragmática practicada 5 minutos al día puede reducir la presión arterial. Inhala 4 segundos, mantén 2, exhala 6 segundos.",
+    "icon": "self_improvement"
+  },
+  {
+    "id": "rh8",
+    "category": "bienestar",
+    "title": "Monitorea tu presión",
+    "body": "Si tienes tensiómetro en casa, mídete siempre a la misma hora, sentado y en reposo. Lleva un registro para mostrarle a tu médico.",
+    "icon": "self_improvement"
+  }
+]

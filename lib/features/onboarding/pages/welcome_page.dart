@@ -10,17 +10,18 @@ class WelcomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.favorite,
-            size: 100,
-            color: Theme.of(context).colorScheme.primary,
+          Image.asset(
+            'assets/branding/eira_logo.png',
+            width: 200,
+            height: 200,
+            fit: BoxFit.contain,
           ),
           const SizedBox(height: 32),
           Text(
             'Bienvenido',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),

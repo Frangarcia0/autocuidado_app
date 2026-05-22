@@ -24,7 +24,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
   String? _selectedCondition;
 
   @override
+  void initState() {
+    super.initState();
+    // Escuchar cambios en los campos de texto
+    // y reconstruir el widget para reevaluar _canAdvance
+    _nameController.addListener(_onTextChanged);
+    _ageController.addListener(_onTextChanged);
+  }
+
+  void _onTextChanged() {
+    setState(() {});
+  }
+
+  @override
   void dispose() {
+    _nameController.removeListener(_onTextChanged);
+    _ageController.removeListener(_onTextChanged);
     _pageController.dispose();
     _nameController.dispose();
     _ageController.dispose();
@@ -34,8 +49,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   bool get _canAdvance {
     if (_currentPage == 2) return _selectedCondition != null;
     if (_currentPage == 3) {
-      return _nameController.text.trim().isNotEmpty &&
-          int.tryParse(_ageController.text) != null;
+      final nameOk = _nameController.text.trim().isNotEmpty;
+      final ageOk = int.tryParse(_ageController.text.trim()) != null;
+      return nameOk && ageOk;
     }
     return true;
   }
@@ -54,7 +70,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Future<void> _finish() async {
     await _prefs.saveUserProfile(
       name: _nameController.text.trim(),
-      age: int.parse(_ageController.text),
+      age: int.parse(_ageController.text.trim()),
       condition: _selectedCondition!,
     );
     await _prefs.setOnboardingCompleted();

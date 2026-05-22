@@ -19,9 +19,9 @@ class ConditionPage extends StatelessWidget {
         children: [
           Text(
             '¿Cuál es tu condición?',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
@@ -89,7 +89,7 @@ class _ConditionOption extends StatelessWidget {
             width: selected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(12),
-          color: selected ? color.withOpacity(0.08) : null,
+          color: selected ? color.withAlpha((0.08 * 255).round()) : null,
         ),
         child: Row(
           children: [
