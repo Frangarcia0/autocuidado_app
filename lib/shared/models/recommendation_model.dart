@@ -1,18 +1,28 @@
-<<<<<<< HEAD
 class RecommendationModel {
   final String id;
   final String category;
   final String title;
   final String body;
   final String icon;
+  final String? condition;
 
-  const RecommendationModel({
+  static const Map<String, String> _defaultIcons = {
+    'alimentacion': 'restaurant',
+    'ejercicio': 'directions_walk',
+    'hidratacion': 'water_drop',
+    'bienestar': 'self_improvement',
+  };
+
+  RecommendationModel({
     required this.id,
     required this.category,
     required this.title,
-    required this.body,
-    required this.icon,
-  });
+    String? body,
+    String? description,
+    this.condition,
+    String? icon,
+  })  : body = body ?? description ?? '',
+        icon = icon ?? _defaultIcons[category] ?? 'lightbulb_outline';
 
   factory RecommendationModel.fromMap(Map<String, dynamic> map) {
     return RecommendationModel(
@@ -21,25 +31,22 @@ class RecommendationModel {
       title: map['title'] as String,
       body: map['body'] as String,
       icon: map['icon'] as String,
+      condition: map['condition'] as String?,
     );
   }
-}
-=======
-/// Modelo de una recomendación de autocuidado.
-/// No contiene información clínica — solo consejos generales.
-class RecommendationModel {
-  final String id;
-  final String title;
-  final String description;
-  final String category; // 'alimentacion' | 'ejercicio' | 'bienestar' | 'hidratacion'
-  final String condition; // 'diabetes' | 'hypertension' | 'both'
 
-  const RecommendationModel({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.category,
-    required this.condition,
-  });
+  static String _defaultIconFor(String category) {
+    switch (category) {
+      case 'alimentacion':
+        return 'restaurant';
+      case 'ejercicio':
+        return 'directions_walk';
+      case 'hidratacion':
+        return 'water_drop';
+      case 'bienestar':
+        return 'self_improvement';
+      default:
+        return 'lightbulb_outline';
+    }
+  }
 }
->>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34

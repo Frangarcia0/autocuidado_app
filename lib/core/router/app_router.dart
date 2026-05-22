@@ -12,10 +12,7 @@ import '../widgets/app_shell.dart';
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const _SplashRedirect(),
-    ),
+    GoRoute(path: '/', builder: (context, state) => const _SplashRedirect()),
     GoRoute(
       path: '/onboarding',
       builder: (context, state) => const OnboardingPage(),
@@ -23,10 +20,7 @@ final GoRouter appRouter = GoRouter(
     ShellRoute(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
-        GoRoute(
-          path: '/home',
-          builder: (context, state) => const HomePage(),
-        ),
+        GoRoute(path: '/home', builder: (context, state) => const HomePage()),
         GoRoute(
           path: '/habits',
           builder: (context, state) => const HabitsPage(),
@@ -70,8 +64,6 @@ class _SplashRedirectState extends State<_SplashRedirect> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

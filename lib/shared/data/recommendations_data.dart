@@ -15,7 +15,7 @@ import '../models/recommendation_model.dart';
 class RecommendationsData {
 
   // ── DIABETES ───────────────────────────────────────────────
-  static const List<RecommendationModel> _diabetes = [
+  static final List<RecommendationModel> _diabetes = [
     RecommendationModel(
       id: 'r_d_1',
       title: 'Prefiere el arroz integral',
@@ -99,7 +99,7 @@ class RecommendationsData {
   ];
 
   // ── HIPERTENSIÓN ───────────────────────────────────────────
-  static const List<RecommendationModel> _hypertension = [
+  static final List<RecommendationModel> _hypertension = [
     RecommendationModel(
       id: 'r_h_1',
       title: 'Reduce la sal gradualmente',
@@ -189,7 +189,7 @@ class RecommendationsData {
   // diabetes E hipertensión simultáneamente.
   // Busca el balance entre ambas condiciones, evitando
   // recomendaciones que beneficien a una y perjudiquen a la otra.
-  static const List<RecommendationModel> _both = [
+  static final List<RecommendationModel> _both = [
     RecommendationModel(
       id: 'r_b_1',
       title: 'Una alimentación que cuida las dos',
