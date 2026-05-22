@@ -1,0 +1,37 @@
+[
+  {
+    "id": "eh1",
+    "title": "¿Qué es la hipertensión arterial?",
+    "summary": "Entiende qué significa tener la presión alta y por qué hay que controlarla.",
+    "content": "La hipertensión ocurre cuando la fuerza de la sangre contra las paredes de las arterias es persistentemente alta.\n\nSe diagnostica cuando la presión sistólica supera 140 mmHg o la diastólica supera 90 mmHg en múltiples mediciones.\n\nEl problema es que suele ser silenciosa — muchas personas no sienten síntomas. Por eso se la llama 'el asesino silencioso'. Controlarse regularmente es fundamental.",
+    "category": "general"
+  },
+  {
+    "id": "eh2",
+    "title": "¿Puedo tomar café si tengo hipertensión?",
+    "summary": "La respuesta no es tan simple como sí o no.",
+    "content": "La cafeína puede elevar la presión temporalmente, especialmente si no eres consumidor habitual.\n\nEn personas que toman café regularmente, el cuerpo desarrolla cierta tolerancia y el efecto es menor.\n\nLa recomendación general es limitar a 1 o 2 tazas al día, evitar el café después del mediodía, y observar cómo responde tu cuerpo.\n\nSi tomas medicamentos para la presión, consulta con tu médico — algunos pueden interactuar con la cafeína.",
+    "category": "alimentacion"
+  },
+  {
+    "id": "eh3",
+    "title": "¿Cómo medir bien la presión en casa?",
+    "summary": "Pequeños errores pueden dar lecturas incorrectas. Aprende la técnica correcta.",
+    "content": "Para una medición confiable:\n\n1. Siéntate y descansa 5 minutos antes de medirte.\n2. Apoya el brazo en una mesa a la altura del corazón.\n3. No cruces las piernas.\n4. No hables durante la medición.\n5. Mídete siempre a la misma hora (idealmente en la mañana).\n6. Anota los resultados para mostrarle a tu médico.\n\nUna sola medición alta no significa que estés mal — el estrés, el frío o haber corrido pueden elevarla temporalmente.",
+    "category": "general"
+  },
+  {
+    "id": "eh4",
+    "title": "¿El sodio realmente afecta la presión?",
+    "summary": "Sí, y hay sodio oculto en muchos alimentos que no imaginas.",
+    "content": "El sodio retiene agua en el cuerpo, lo que aumenta el volumen de sangre y eleva la presión arterial.\n\nLa OMS recomienda menos de 5 gramos de sal al día (una cucharadita). La mayoría de las personas consume el doble.\n\nEl sodio oculto está en: pan (uno de los mayores aportes), embutidos, quesos, salsas envasadas, caldos en cubo y comida rápida.\n\nLeer etiquetas ayuda: busca 'sodio' en la tabla nutricional. Menos de 120mg por porción es bajo en sodio.",
+    "category": "alimentacion"
+  },
+  {
+    "id": "eh5",
+    "title": "¿El estrés sube la presión?",
+    "summary": "Sí, aunque el mecanismo es más complejo de lo que parece.",
+    "content": "El estrés agudo eleva la presión temporalmente — es una respuesta normal del cuerpo.\n\nEl problema es el estrés crónico: mantiene el sistema nervioso en alerta constante, lo que a largo plazo puede contribuir a hipertensión sostenida.\n\nAdemás, cuando estamos estresados tendemos a dormir mal, comer peor y movernos menos — todo eso también sube la presión.\n\nPequeñas pausas de relajación diarias (5 a 10 minutos de respiración consciente) tienen efecto medible en la presión arterial.",
+    "category": "bienestar"
+  }
+]

@@ -5,6 +5,7 @@ import 'core/theme/app_theme.dart';
 import 'shared/providers/user_provider.dart';
 import 'shared/providers/habits_provider.dart';
 import 'shared/providers/recommendations_provider.dart';
+import 'shared/providers/education_provider.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,13 +17,13 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => HabitsProvider()),
         ChangeNotifierProvider(create: (_) => RecommendationsProvider()),
+        ChangeNotifierProvider(create: (_) => EducationProvider()),
       ],
       child: const _AppWithInit(),
     );
   }
 }
 
-/// Widget separado que inicializa datos al arrancar la app
 class _AppWithInit extends StatefulWidget {
   const _AppWithInit();
 
@@ -46,6 +47,7 @@ class _AppWithInitState extends State<_AppWithInit> {
     final condition = userProvider.condition;
     await context.read<HabitsProvider>().loadHabitsForCondition(condition);
     await context.read<RecommendationsProvider>().loadForCondition(condition);
+    await context.read<EducationProvider>().loadForCondition(condition);
   }
 
   @override

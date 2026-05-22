@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ed1",
+    "title": "¿Qué es la diabetes tipo 2?",
+    "summary": "Entiende qué ocurre en tu cuerpo y por qué el estilo de vida importa.",
+    "content": "La diabetes tipo 2 ocurre cuando el cuerpo no usa bien la insulina, una hormona que ayuda a que la glucosa entre a las células para dar energía.\n\nCon el tiempo, el páncreas no puede producir suficiente insulina para compensar. Esto hace que la glucosa se acumule en la sangre.\n\nLa buena noticia es que los hábitos saludables — alimentación equilibrada, actividad física y buen sueño — pueden mejorar significativamente el control de la glucosa.",
+    "category": "general"
+  },
+  {
+    "id": "ed2",
+    "title": "¿Puedo comer fruta si tengo diabetes?",
+    "summary": "Sí, pero hay claves para elegir bien y en la porción correcta.",
+    "content": "La fruta contiene azúcar natural (fructosa), pero también fibra, vitaminas y antioxidantes. No hay que eliminarla.\n\nLas mejores opciones son las frutas con menor índice glucémico: manzana, pera, berries, kiwi y naranja.\n\nLas frutas como el plátano maduro, la uva y el mango tienen más azúcar — puedes comerlas, pero en porciones pequeñas.\n\nPreferirlas enteras en vez de en jugo: la fibra de la fruta entera frena la absorción del azúcar.",
+    "category": "alimentacion"
+  },
+  {
+    "id": "ed3",
+    "title": "¿El estrés afecta la glucosa?",
+    "summary": "Sí, y más de lo que crees. Aquí te explicamos por qué.",
+    "content": "Cuando estás estresado, tu cuerpo libera cortisol y adrenalina. Estas hormonas elevan la glucosa en sangre para darte energía rápida ante una amenaza.\n\nEn personas con diabetes, este mecanismo puede descontrolar los niveles de glucosa aunque no hayas comido nada diferente.\n\nAlgunas estrategias efectivas: caminata de 10 minutos, respiración profunda, hablar con alguien de confianza, o simplemente salir a tomar aire fresco.",
+    "category": "bienestar"
+  },
+  {
+    "id": "ed4",
+    "title": "¿Qué es el índice glucémico?",
+    "summary": "Una herramienta simple para elegir mejor los carbohidratos.",
+    "content": "El índice glucémico (IG) mide qué tan rápido un alimento eleva la glucosa en sangre.\n\nAlimentos con IG alto (pan blanco, arroz blanco, papas fritas) la suben rápido.\nAlimentos con IG bajo (legumbres, avena, verduras) la suben lentamente.\n\nNo necesitas memorizar tablas. Una regla simple: mientras más procesado y refinado es un alimento, más alto suele ser su IG. Prefiere alimentos en su forma más natural.",
+    "category": "alimentacion"
+  },
+  {
+    "id": "ed5",
+    "title": "¿Cuánto ejercicio necesito?",
+    "summary": "La OMS recomienda 150 minutos semanales. Así puedes lograrlo.",
+    "content": "La recomendación general es 150 minutos de actividad moderada a la semana — equivale a 30 minutos, 5 días.\n\nNo tiene que ser gimnasio. Caminar a paso rápido, bailar, andar en bicicleta o nadar cuentan.\n\nEmpieza con lo que puedas: 10 minutos al día ya tiene beneficios. Lo importante es la constancia, no la intensidad.\n\nEl ejercicio después de las comidas es especialmente útil para bajar el peak de glucosa postprandial.",
+    "category": "ejercicio"
+  }
+]
