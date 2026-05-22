@@ -223,7 +223,11 @@ packages:
       sha256: "1741988757a65eb6b36abe716829688cf01910bbf91c34354ff7ec1c3de2b349"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "1.18.0"
+=======
+    version: "1.17.0"
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
   nested:
     dependency: transitive
     description:
@@ -288,6 +292,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+<<<<<<< HEAD
   posix:
     dependency: transitive
     description:
@@ -296,6 +301,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.5.0"
+=======
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
   provider:
     dependency: "direct main"
     description:

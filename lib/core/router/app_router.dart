@@ -12,7 +12,6 @@ import '../widgets/app_shell.dart';
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-    // Splash que decide a dónde ir
     GoRoute(
       path: '/',
       builder: (context, state) => const _SplashRedirect(),
@@ -24,18 +23,31 @@ final GoRouter appRouter = GoRouter(
     ShellRoute(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
-        GoRoute(path: '/home', builder: (context, state) => const HomePage()),
-        GoRoute(path: '/habits', builder: (context, state) => const HabitsPage()),
-        GoRoute(path: '/recommendations', builder: (context, state) => const RecommendationsPage()),
-        GoRoute(path: '/education', builder: (context, state) => const EducationPage()),
-        GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
+        GoRoute(
+          path: '/home',
+          builder: (context, state) => const HomePage(),
+        ),
+        GoRoute(
+          path: '/habits',
+          builder: (context, state) => const HabitsPage(),
+        ),
+        GoRoute(
+          path: '/recommendations',
+          builder: (context, state) => const RecommendationsPage(),
+        ),
+        GoRoute(
+          path: '/education',
+          builder: (context, state) => const EducationPage(),
+        ),
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => const ProfilePage(),
+        ),
       ],
     ),
   ],
 );
 
-/// Pantalla invisible que decide la ruta inicial según si el usuario
-/// completó el onboarding o no.
 class _SplashRedirect extends StatefulWidget {
   const _SplashRedirect();
 

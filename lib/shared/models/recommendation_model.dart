@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class RecommendationModel {
   final String id;
   final String category;
@@ -23,3 +24,22 @@ class RecommendationModel {
     );
   }
 }
+=======
+/// Modelo de una recomendación de autocuidado.
+/// No contiene información clínica — solo consejos generales.
+class RecommendationModel {
+  final String id;
+  final String title;
+  final String description;
+  final String category; // 'alimentacion' | 'ejercicio' | 'bienestar' | 'hidratacion'
+  final String condition; // 'diabetes' | 'hypertension' | 'both'
+
+  const RecommendationModel({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.category,
+    required this.condition,
+  });
+}
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34

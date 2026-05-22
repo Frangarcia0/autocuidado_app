@@ -26,6 +26,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     // Escuchar cambios en los campos de texto
     // y reconstruir el widget para reevaluar _canAdvance
     _nameController.addListener(_onTextChanged);
@@ -34,6 +35,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   void _onTextChanged() {
     setState(() {});
+=======
+    // Cada vez que el usuario escribe, se reevalúa el botón
+    _nameController.addListener(() => setState(() {}));
+    _ageController.addListener(() => setState(() {}));
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
   }
 
   @override
@@ -49,9 +55,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
   bool get _canAdvance {
     if (_currentPage == 2) return _selectedCondition != null;
     if (_currentPage == 3) {
+<<<<<<< HEAD
       final nameOk = _nameController.text.trim().isNotEmpty;
       final ageOk = int.tryParse(_ageController.text.trim()) != null;
       return nameOk && ageOk;
+=======
+      final name = _nameController.text.trim();
+      final age = int.tryParse(_ageController.text.trim());
+      return name.isNotEmpty && age != null && age > 0 && age < 120;
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
     }
     return true;
   }
@@ -103,6 +115,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 }),
               ),
             ),
+
             // Páginas
             Expanded(
               child: PageView(
@@ -123,6 +136,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ],
               ),
             ),
+
             // Botón inferior
             Padding(
               padding: const EdgeInsets.all(24),

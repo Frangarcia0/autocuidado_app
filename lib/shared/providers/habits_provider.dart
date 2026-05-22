@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import '../services/preferences_service.dart';
 
+=======
+
+/// Representa un hábito individual
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
 class Habit {
   final String id;
   final String title;
@@ -17,6 +22,7 @@ class Habit {
   });
 }
 
+<<<<<<< HEAD
 class HabitsProvider extends ChangeNotifier {
   final PreferencesService _prefs = PreferencesService();
   List<Habit> _habits = [];
@@ -55,10 +61,38 @@ class HabitsProvider extends ChangeNotifier {
   }
 
   Future<void> toggleHabit(String id) async {
+=======
+/// Gestiona el estado de los hábitos en toda la app.
+class HabitsProvider extends ChangeNotifier {
+  List<Habit> _habits = [];
+
+  List<Habit> get habits => _habits;
+
+  /// Hábitos completados hoy
+  int get completedToday =>
+      _habits.where((h) => h.completedToday).length;
+
+  /// Total de hábitos
+  int get total => _habits.length;
+
+  /// Porcentaje de completitud hoy (0.0 a 1.0)
+  double get todayProgress =>
+      _habits.isEmpty ? 0.0 : completedToday / total;
+
+  /// Carga hábitos base según la condición del usuario
+  void loadHabitsForCondition(String condition) {
+    _habits = _getDefaultHabits(condition);
+    notifyListeners();
+  }
+
+  /// Marca o desmarca un hábito como completado
+  void toggleHabit(String id) {
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
     final index = _habits.indexWhere((h) => h.id == id);
     if (index != -1) {
       _habits[index].completedToday = !_habits[index].completedToday;
       notifyListeners();
+<<<<<<< HEAD
 
       final completedIds = _habits
           .where((h) => h.completedToday)
@@ -79,6 +113,15 @@ class HabitsProvider extends ChangeNotifier {
 
   List<Habit> _getDefaultHabits(String condition) {
     final all = [
+=======
+    }
+  }
+
+  /// Hábitos predefinidos según condición — contenido culturalmente adaptado
+  List<Habit> _getDefaultHabits(String condition) {
+    final all = [
+      // Hábitos para diabetes
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
       Habit(
         id: 'h1',
         title: 'Tomar agua (8 vasos)',
@@ -103,6 +146,10 @@ class HabitsProvider extends ChangeNotifier {
         category: 'alimentacion',
         condition: 'diabetes',
       ),
+<<<<<<< HEAD
+=======
+      // Hábitos para hipertensión
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
       Habit(
         id: 'h5',
         title: 'Reducir sal en comidas',
@@ -132,4 +179,8 @@ class HabitsProvider extends ChangeNotifier {
     if (condition == 'both') return all;
     return all.where((h) => h.condition == condition).toList();
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5ee850ee38f487473e9db5bcbe8b5157d187fb34
