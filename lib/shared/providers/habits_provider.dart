@@ -72,7 +72,7 @@ class HabitsProvider extends ChangeNotifier {
 
   List<Habit> _getDefaultHabits(String condition) {
     final all = [
-      // Hábitos para diabetes
+      // HÃ¡bitos para diabetes
       Habit(
         id: 'h1',
         title: 'Tomar agua (8 vasos)',
@@ -87,7 +87,7 @@ class HabitsProvider extends ChangeNotifier {
       ),
       Habit(
         id: 'h3',
-        title: 'Evitar azúcar añadida hoy',
+        title: 'Evitar azÃºcar aÃ±adida hoy',
         category: 'alimentacion',
         condition: 'diabetes',
       ),
@@ -97,7 +97,7 @@ class HabitsProvider extends ChangeNotifier {
         category: 'alimentacion',
         condition: 'diabetes',
       ),
-      // Hábitos para hipertensión
+      // HÃ¡bitos para hipertensiÃ³n
       Habit(
         id: 'h5',
         title: 'Reducir sal en comidas',
@@ -112,7 +112,7 @@ class HabitsProvider extends ChangeNotifier {
       ),
       Habit(
         id: 'h7',
-        title: 'Momento de relajación',
+        title: 'Momento de relajaciÃ³n',
         category: 'bienestar',
         condition: 'hypertension',
       ),

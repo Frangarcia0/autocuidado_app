@@ -11,11 +11,11 @@ class RecommendationsPage extends StatelessWidget {
       case 'todas':
         return 'Todas';
       case 'alimentacion':
-        return 'Alimentación';
+        return 'AlimentaciÃ³n';
       case 'ejercicio':
         return 'Ejercicio';
       case 'hidratacion':
-        return 'Hidratación';
+        return 'HidrataciÃ³n';
       case 'bienestar':
         return 'Bienestar';
       default:
@@ -61,7 +61,7 @@ class RecommendationsPage extends StatelessWidget {
                       ? const Center(
                           child: Padding(
                             padding: EdgeInsets.all(16),
-                            child: Text('No hay recomendaciones para esta categoría.'),
+                            child: Text('No hay recomendaciones para esta categorÃ­a.'),
                           ),
                         )
                       : ListView.builder(

@@ -1,6 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesService {
+  static const _keyNotificationsEnabled = 'notifications_enabled';
+  static const _keyNotificationHour = 'notification_hour';
+  static const _keyNotificationMinute = 'notification_minute';
   static const _keyOnboardingCompleted = 'onboarding_completed';
   static const _keyUserName = 'user_name';
   static const _keyUserAge = 'user_age';
@@ -139,5 +142,31 @@ class PreferencesService {
   Future<void> clearAll() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+  // ── Notificaciones ───────────────────────────────────────────
+
+  Future<bool> getNotificationsEnabled() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_keyNotificationsEnabled) ?? false;
+  }
+
+  Future<void> saveNotificationSettings({
+    required bool enabled,
+    required int hour,
+    required int minute,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keyNotificationsEnabled, enabled);
+    await prefs.setInt(_keyNotificationHour, hour);
+    await prefs.setInt(_keyNotificationMinute, minute);
+  }
+
+  Future<Map<String, dynamic>> getNotificationSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {
+      'enabled': prefs.getBool(_keyNotificationsEnabled) ?? false,
+      'hour': prefs.getInt(_keyNotificationHour) ?? 9,
+      'minute': prefs.getInt(_keyNotificationMinute) ?? 0,
+    };
   }
 }

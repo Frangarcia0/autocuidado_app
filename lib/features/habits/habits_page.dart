@@ -41,9 +41,9 @@ class HabitsPage extends StatelessWidget {
     final habits = habitsProvider.habits;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Mis H·bitos')),
+      appBar: AppBar(title: const Text('Mis H√°bitos')),
       body: habits.isEmpty
-          ? const Center(child: Text('No hay h·bitos configurados.'))
+          ? const Center(child: Text('No hay h√°bitos configurados.'))
           : Column(
               children: [
                 Padding(
