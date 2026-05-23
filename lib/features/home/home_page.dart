@@ -44,17 +44,22 @@ class HomePage extends StatelessWidget {
   String _getTip(String condition) {
     if (condition == 'diabetes') {
       return 'Recuerda mantener horarios regulares de comida. '
-          'Peque�as porciones distribuidas en el d�a ayudan '
+          'Pequeñas porciones distribuidas en el día ayudan '
           'a mantener niveles de glucosa estables.';
     }
     if (condition == 'hypertension') {
       return 'Reducir el sodio en tus comidas es uno de los '
-          'cambios m�s efectivos para tu presi�n arterial. '
-          'Prueba condimentar con lim�n o hierbas arom�ticas.';
+          'cambios más efectivos para tu presión arterial. '
+          'Prueba condimentar con limón o hierbas aromáticas.';
     }
-    return 'Mantener h�bitos saludables constantes es m�s '
-        'importante que cambios dr�sticos. '
-        'Cada peque�o paso cuenta.';
+    if (condition == 'insulin_resistance') {
+      return 'El ejercicio y el sueño son tus mejores aliados. '
+          'Cada caminata post-comida y cada noche de buen descanso '
+          'mejoran directamente la respuesta de tu cuerpo a la insulina.';
+    }
+    return 'Mantener hábitos saludables constantes es más '
+        'importante que cambios drásticos. '
+        'Cada pequeño paso cuenta.';
   }
 
   @override

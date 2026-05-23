@@ -6,7 +6,10 @@
       "Bash(dir \"C:\\\\Users\\\\estel\\\\Desktop\\\\Proyectos\\\\Develop\\\\Eira\\\\autocuidado_app\\\\lib\\\\shared\\\\providers\\\\\" 2>&1 && dir \"C:\\\\Users\\\\estel\\\\Desktop\\\\Proyectos\\\\Develop\\\\Eira\\\\autocuidado_app\\\\lib\\\\features\\\\habits\\\\\")",
       "Bash(dir \"C:\\\\Users\\\\estel\\\\Desktop\\\\Proyectos\\\\Develop\\\\Eira\\\\autocuidado_app\\\\lib\\\\features\\\\recommendations\\\\\" 2>&1)",
       "Bash(cd /mnt/c/Users/estel/Desktop/Proyectos/Develop/Eira/autocuidado_app && file lib/shared/providers/habits_provider.dart lib/features/habits/habits_page.dart lib/features/recommendations/recommendations_page.dart 2>&1)",
-      "Bash(flutter build *)"
+      "Bash(flutter build *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\estel\\\\Desktop\\\\Proyectos\\\\Develop\\\\Eira\\\\autocuidado_app\\\\assets\\\\content\" -File)",
+      "Bash(Select-Object Name)",
+      "Bash(Sort-Object Name)"
     ]
   }
 }

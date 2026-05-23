@@ -55,6 +55,14 @@ class RecommendationsProvider extends ChangeNotifier {
         result.addAll(list.map((e) => RecommendationModel.fromMap(e)));
       }
 
+      if (condition == 'insulin_resistance') {
+        final data = await rootBundle.loadString(
+          'assets/content/recommendations_insulin_resistance.json',
+        );
+        final list = json.decode(data) as List;
+        result.addAll(list.map((e) => RecommendationModel.fromMap(e)));
+      }
+
       _recommendations = result;
     } catch (e) {
       _recommendations = [];

@@ -172,7 +172,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           const SizedBox(height: 8),
           _ConditionOption(
-            label: 'Ambas',
+            label: 'Resistencia a la insulina',
+            icon: Icons.monitor_heart,
+            value: 'insulin_resistance',
+            selected: _selectedCondition == 'insulin_resistance',
+            onTap: () => setState(() => _selectedCondition = 'insulin_resistance'),
+          ),
+          const SizedBox(height: 8),
+          _ConditionOption(
+            label: 'Diabetes e hipertensión',
             icon: Icons.health_and_safety,
             value: 'both',
             selected: _selectedCondition == 'both',

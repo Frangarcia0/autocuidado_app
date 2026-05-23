@@ -48,7 +48,15 @@ class ConditionPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _ConditionOption(
-            label: 'Ambas',
+            label: 'Resistencia a la insulina',
+            icon: Icons.monitor_heart,
+            value: 'insulin_resistance',
+            selected: selectedCondition == 'insulin_resistance',
+            onTap: () => onSelected('insulin_resistance'),
+          ),
+          const SizedBox(height: 12),
+          _ConditionOption(
+            label: 'Diabetes e hipertensión',
             icon: Icons.health_and_safety,
             value: 'both',
             selected: selectedCondition == 'both',

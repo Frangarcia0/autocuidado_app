@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ei1",
+    "title": "¿Qué es la resistencia a la insulina?",
+    "summary": "Entiende qué ocurre en tu cuerpo y por qué es tan común hoy.",
+    "content": "La insulina es una hormona que actúa como una 'llave' que abre las células para que la glucosa entre y se use como energía.\n\nEn la resistencia a la insulina, esa llave sigue existiendo, pero la cerradura ya no responde bien. El páncreas produce más y más insulina para compensar, pero con el tiempo no logra mantener el ritmo.\n\nEl resultado: glucosa elevada en sangre, cansancio frecuente y mayor riesgo de desarrollar diabetes tipo 2.\n\nLa buena noticia es que la resistencia a la insulina responde muy bien a cambios en el estilo de vida, especialmente ejercicio y alimentación.",
+    "category": "general"
+  },
+  {
+    "id": "ei2",
+    "title": "Qué comer para mejorar tu sensibilidad",
+    "summary": "Los alimentos correctos pueden reducir la carga sobre tu insulina.",
+    "content": "No se trata de pasar hambre ni de dietas extremas. El objetivo es elegir alimentos que eleven la glucosa lentamente.\n\nPrioriza:\n- Verduras de todo tipo, especialmente las de hoja verde\n- Legumbres: porotos, lentejas, garbanzos\n- Cereales integrales: avena, arroz integral, pan integral\n- Proteínas magras: pollo, pescado, huevo, legumbres\n- Grasas saludables: palta, nueces, aceite de oliva\n\nLimita:\n- Azúcar añadida y dulces\n- Pan blanco, arroz blanco, papas fritas\n- Jugos de fruta y bebidas azucaradas\n- Alimentos ultraprocesados\n\nNo se trata de perfección, sino de que la mayoría de tus elecciones sean las correctas.",
+    "category": "alimentacion"
+  },
+  {
+    "id": "ei3",
+    "title": "El ejercicio como medicina",
+    "summary": "El movimiento es el tratamiento más eficaz para la resistencia a la insulina.",
+    "content": "Cuando haces ejercicio, tus músculos absorben glucosa sin necesitar insulina. Es como abrir una puerta trasera que bypasea el problema de la cerradura.\n\nAdemás, el ejercicio regular aumenta la masa muscular, y el músculo es el tejido que más glucosa consume en el cuerpo.\n\nQué funciona mejor:\n- Ejercicio aeróbico (caminar, trotar, bicicleta): mejora la sensibilidad a la insulina en 24-48 horas\n- Ejercicio de fuerza (sentadillas, lagartijas, pesas): construye músculo que consume glucosa permanentemente\n- Combinar ambos es lo más efectivo\n\nNo necesitas ir al gimnasio. 30 minutos diarios de caminata rápida más 15 minutos de ejercicios en casa ya tienen un efecto significativo.",
+    "category": "ejercicio"
+  },
+  {
+    "id": "ei4",
+    "title": "El sueño y tu metabolismo",
+    "summary": "Dormir mal empeora la resistencia a la insulina más de lo que imaginas.",
+    "content": "Una sola noche de sueño pobre ya reduce la sensibilidad a la insulina al día siguiente. El efecto es comparable a varios meses de mala alimentación.\n\nMientras duermes, tu cuerpo regula las hormonas del hambre (grelina y leptina) y repara los tejidos. Sin suficiente sueño, estas hormonas se desregulan: aumenta el apetito por dulces y carbohidratos, y la insulina trabaja peor.\n\nConsejos para mejorar el sueño:\n- Acostarte y levantarte a la misma hora todos los días\n- Evitar pantallas 30-60 minutos antes de dormir\n- Mantener el dormitorio fresco y oscuro\n- Evitar café después de las 15:00\n\nApuntar a 7-8 horas de sueño continuo.",
+    "category": "bienestar"
+  },
+  {
+    "id": "ei5",
+    "title": "¿Se puede revertir la resistencia a la insulina?",
+    "summary": "Sí. Con los hábitos correctos, el cuerpo puede recuperar su sensibilidad.",
+    "content": "A diferencia de la diabetes tipo 2 ya establecida, la resistencia a la insulina es altamente reversible con cambios en el estilo de vida.\n\nEstudios muestran que combinando ejercicio regular con una alimentación de bajo índice glucémico, muchas personas normalizan su sensibilidad a la insulina en semanas o meses.\n\nLos cambios más efectivos (por orden de impacto):\n1. Ejercicio regular, especialmente de fuerza\n2. Reducir azúcares y carbohidratos refinados\n3. Dormir 7-8 horas cada noche\n4. Reducir el estrés crónico\n5. Mantener un peso saludable\n\nNo se requiere que todo sea perfecto. Incluso mejorar uno o dos de estos factores produce beneficios medibles. Lo más importante es la constancia en el tiempo.",
+    "category": "general"
+  }
+]

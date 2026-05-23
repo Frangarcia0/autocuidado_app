@@ -122,9 +122,34 @@ class HabitsProvider extends ChangeNotifier {
         category: 'hidratacion',
         condition: 'hypertension',
       ),
+      // Hábitos para resistencia a la insulina
+      Habit(
+        id: 'h9',
+        title: 'Caminar 30 minutos',
+        category: 'ejercicio',
+        condition: 'insulin_resistance',
+      ),
+      Habit(
+        id: 'h10',
+        title: 'Evitar azúcar y harinas refinadas',
+        category: 'alimentacion',
+        condition: 'insulin_resistance',
+      ),
+      Habit(
+        id: 'h11',
+        title: 'Tomar agua (8 vasos)',
+        category: 'hidratacion',
+        condition: 'insulin_resistance',
+      ),
+      Habit(
+        id: 'h12',
+        title: 'Dormir 7-8 horas esta noche',
+        category: 'bienestar',
+        condition: 'insulin_resistance',
+      ),
     ];
 
-    if (condition == 'both') return all;
+    if (condition == 'both') return all.where((h) => h.condition == 'diabetes' || h.condition == 'hypertension').toList();
     return all.where((h) => h.condition == condition).toList();
   }
 }

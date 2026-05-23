@@ -33,6 +33,14 @@ class EducationProvider extends ChangeNotifier {
         result.addAll(list.map((e) => EducationModel.fromMap(e)));
       }
 
+      if (condition == 'insulin_resistance') {
+        final data = await rootBundle.loadString(
+          'assets/content/education_insulin_resistance.json',
+        );
+        final list = json.decode(data) as List;
+        result.addAll(list.map((e) => EducationModel.fromMap(e)));
+      }
+
       _articles = result;
     } catch (e) {
       _articles = [];

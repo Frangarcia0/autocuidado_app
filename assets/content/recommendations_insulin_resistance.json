@@ -1,0 +1,58 @@
+[
+  {
+    "id": "ri1",
+    "category": "alimentacion",
+    "title": "Elige carbohidratos integrales",
+    "body": "Reemplaza pan blanco, arroz blanco y harinas refinadas por versiones integrales. Los carbohidratos con fibra elevan la glucosa lentamente y reducen la carga sobre la insulina.",
+    "icon": "restaurant"
+  },
+  {
+    "id": "ri2",
+    "category": "alimentacion",
+    "title": "Legumbres en tu almuerzo",
+    "body": "Porotos, lentejas y garbanzos tienen bajo índice glucémico y alto contenido en fibra y proteína. Son ideales para mantener la glucosa estable durante horas.",
+    "icon": "restaurant"
+  },
+  {
+    "id": "ri3",
+    "category": "alimentacion",
+    "title": "Evita el picoteo constante",
+    "body": "Comer a cada rato mantiene elevada la insulina durante todo el día. Intenta respetar 3 comidas principales con ayuno de al menos 4 horas entre ellas.",
+    "icon": "restaurant"
+  },
+  {
+    "id": "ri4",
+    "category": "ejercicio",
+    "title": "Ejercicio de fuerza, tu mejor aliado",
+    "body": "Sentadillas, lagartijas y ejercicios con peso propio aumentan la masa muscular, que actúa como un 'imán' para la glucosa. Incluso 15 minutos al día marcan diferencia.",
+    "icon": "fitness_center"
+  },
+  {
+    "id": "ri5",
+    "category": "ejercicio",
+    "title": "Caminar después de comer",
+    "body": "Una caminata de 10 a 15 minutos luego del almuerzo reduce significativamente el peak de glucosa postprandial y entrena a tus células a usar la insulina mejor.",
+    "icon": "directions_walk"
+  },
+  {
+    "id": "ri6",
+    "category": "hidratacion",
+    "title": "Elimina las bebidas azucaradas",
+    "body": "Las bebidas con azúcar — jugos, refrescos, bebidas energéticas — elevan la glucosa rápidamente y agravan la resistencia a la insulina. El agua es la mejor opción.",
+    "icon": "water_drop"
+  },
+  {
+    "id": "ri7",
+    "category": "bienestar",
+    "title": "Duerme 7 a 8 horas",
+    "body": "Dormir mal aumenta directamente la resistencia a la insulina. Mientras menos duermes, más le cuesta a tus células responder a la insulina al día siguiente.",
+    "icon": "bedtime"
+  },
+  {
+    "id": "ri8",
+    "category": "bienestar",
+    "title": "Controla el estrés crónico",
+    "body": "El cortisol liberado bajo estrés sostenido bloquea la acción de la insulina. Pausas activas, respiración profunda o una caminata ayudan a reducirlo.",
+    "icon": "self_improvement"
+  }
+]
