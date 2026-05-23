@@ -231,7 +231,7 @@ class _TipCard extends StatelessWidget {
 }
 
 class _DisclaimerCard extends StatelessWidget {
-  const _DisclaimerCard({super.key});
+  const _DisclaimerCard();
 
   @override
   Widget build(BuildContext context) {

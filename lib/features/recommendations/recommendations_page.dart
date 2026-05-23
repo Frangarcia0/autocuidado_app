@@ -42,7 +42,7 @@ class RecommendationsPage extends StatelessWidget {
                       vertical: 12,
                     ),
                     itemCount: provider.categories.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
+                    separatorBuilder: (_, _) => const SizedBox(width: 8),
                     itemBuilder: (context, index) {
                       final category = provider.categories[index];
                       final isSelected = provider.selectedCategory == category;

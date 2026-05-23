@@ -40,14 +40,17 @@ class _AppWithInitState extends State<_AppWithInit> {
 
   Future<void> _init() async {
     final userProvider = context.read<UserProvider>();
-    await userProvider.loadUser();
+    final habitsProvider = context.read<HabitsProvider>();
+    final recsProvider = context.read<RecommendationsProvider>();
+    final eduProvider = context.read<EducationProvider>();
 
+    await userProvider.loadUser();
     if (!mounted) return;
 
     final condition = userProvider.condition;
-    await context.read<HabitsProvider>().loadHabitsForCondition(condition);
-    await context.read<RecommendationsProvider>().loadForCondition(condition);
-    await context.read<EducationProvider>().loadForCondition(condition);
+    await habitsProvider.loadHabitsForCondition(condition);
+    await recsProvider.loadForCondition(condition);
+    await eduProvider.loadForCondition(condition);
   }
 
   @override

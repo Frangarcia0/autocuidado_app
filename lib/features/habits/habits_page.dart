@@ -90,7 +90,7 @@ class HabitsPage extends StatelessWidget {
                           leading: CircleAvatar(
                             backgroundColor: habit.completedToday
                                 ? Colors.green.shade100
-                                : _getCategoryColor(habit.category).withOpacity(0.15),
+                                : _getCategoryColor(habit.category).withValues(alpha: 0.15),
                             child: Icon(
                               habit.completedToday
                                   ? Icons.check

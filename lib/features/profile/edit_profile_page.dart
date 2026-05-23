@@ -65,15 +65,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     await userProvider.updateUser(updated);
 
     if (oldCondition != _selectedCondition && mounted) {
-      await context.read<HabitsProvider>().loadHabitsForCondition(
-        _selectedCondition,
-      );
-      await context.read<RecommendationsProvider>().loadForCondition(
-        _selectedCondition,
-      );
-      await context.read<EducationProvider>().loadForCondition(
-        _selectedCondition,
-      );
+      final habitsProvider = context.read<HabitsProvider>();
+      final recsProvider = context.read<RecommendationsProvider>();
+      final eduProvider = context.read<EducationProvider>();
+      await habitsProvider.loadHabitsForCondition(_selectedCondition);
+      await recsProvider.loadForCondition(_selectedCondition);
+      await eduProvider.loadForCondition(_selectedCondition);
     }
 
     if (mounted) Navigator.pop(context);
@@ -240,7 +237,7 @@ class _ConditionOption extends StatelessWidget {
             width: selected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(12),
-          color: selected ? color.withOpacity(0.08) : null,
+          color: selected ? color.withValues(alpha: 0.08) : null,
         ),
         child: Row(
           children: [

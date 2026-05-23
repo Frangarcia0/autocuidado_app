@@ -35,18 +35,4 @@ class RecommendationModel {
     );
   }
 
-  static String _defaultIconFor(String category) {
-    switch (category) {
-      case 'alimentacion':
-        return 'restaurant';
-      case 'ejercicio':
-        return 'directions_walk';
-      case 'hidratacion':
-        return 'water_drop';
-      case 'bienestar':
-        return 'self_improvement';
-      default:
-        return 'lightbulb_outline';
-    }
-  }
 }

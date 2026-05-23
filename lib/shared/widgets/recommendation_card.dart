@@ -66,7 +66,7 @@ class RecommendationCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 18,
-                  backgroundColor: color.withOpacity(0.15),
+                  backgroundColor: color.withValues(alpha:0.15),
                   child: Icon(
                     _getIcon(recommendation.icon),
                     color: color,
@@ -89,7 +89,7 @@ class RecommendationCard extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha:0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(

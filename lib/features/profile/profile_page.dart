@@ -5,6 +5,7 @@ import '../../shared/providers/user_provider.dart';
 import '../../shared/services/preferences_service.dart';
 import 'edit_profile_page.dart';
 import 'privacy_page.dart';
+import 'notifications_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -136,30 +137,46 @@ class ProfilePage extends StatelessWidget {
 
           // Opciones
           Card(
-            child: Column(
-              children: [
-                _ProfileOption(
-                  icon: Icons.shield_outlined,
-                  title: 'Sobre tus datos',
-                  subtitle: 'Privacidad y uso de la información',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const PrivacyPage()),
-                    );
-                  },
-                ),
-                const Divider(height: 1),
-                _ProfileOption(
-                  icon: Icons.refresh,
-                  title: 'Resetear app',
-                  subtitle: 'Borrar datos y volver al inicio',
-                  color: Colors.red.shade400,
-                  onTap: () => _confirmReset(context),
-                ),
-              ],
+  child: Column(
+    children: [
+      _ProfileOption(
+        icon: Icons.notifications_outlined,
+        title: 'Notificaciones',
+        subtitle: 'Configura tus recordatorios diarios',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const NotificationsPage(),
             ),
-          ),
+          );
+        },
+      ),
+      const Divider(height: 1),
+      _ProfileOption(
+        icon: Icons.shield_outlined,
+        title: 'Sobre tus datos',
+        subtitle: 'Privacidad y uso de la información',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const PrivacyPage(),
+            ),
+          );
+        },
+      ),
+      const Divider(height: 1),
+      _ProfileOption(
+        icon: Icons.refresh,
+        title: 'Resetear app',
+        subtitle: 'Borrar datos y volver al inicio',
+        color: Colors.red.shade400,
+        onTap: () => _confirmReset(context),
+      ),
+    ],
+  ),
+        ),
         ],
       ),
     );
