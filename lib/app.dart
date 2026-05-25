@@ -6,6 +6,7 @@ import 'shared/providers/user_provider.dart';
 import 'shared/providers/habits_provider.dart';
 import 'shared/providers/recommendations_provider.dart';
 import 'shared/providers/education_provider.dart';
+import 'shared/providers/recipes_provider.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HabitsProvider()),
         ChangeNotifierProvider(create: (_) => RecommendationsProvider()),
         ChangeNotifierProvider(create: (_) => EducationProvider()),
+        ChangeNotifierProvider(create: (_) => RecipesProvider()),
       ],
       child: const _AppWithInit(),
     );
@@ -43,6 +45,7 @@ class _AppWithInitState extends State<_AppWithInit> {
     final habitsProvider = context.read<HabitsProvider>();
     final recsProvider = context.read<RecommendationsProvider>();
     final eduProvider = context.read<EducationProvider>();
+    final recipesProvider = context.read<RecipesProvider>();
 
     await userProvider.loadUser();
     if (!mounted) return;
@@ -51,6 +54,7 @@ class _AppWithInitState extends State<_AppWithInit> {
     await habitsProvider.loadHabitsForCondition(condition);
     await recsProvider.loadForCondition(condition);
     await eduProvider.loadForCondition(condition);
+    await recipesProvider.loadRecipes();
   }
 
   @override
