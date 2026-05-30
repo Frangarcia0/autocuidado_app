@@ -1,8 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../shared/providers/recipes_provider.dart';
-import '../../shared/models/recipe_model.dart';
-import 'recipe_detail_page.dart';
+import 'package:flutter/services.dart';
 
 class RecipesPage extends StatefulWidget {
   const RecipesPage({super.key});
@@ -12,516 +10,367 @@ class RecipesPage extends StatefulWidget {
 }
 
 class _RecipesPageState extends State<RecipesPage> {
-  String _selectedCategory = 'todos';
-  String _searchQuery = '';
-  final Set<String> _favorites = {};
-  final TextEditingController _searchController = TextEditingController();
+  List<Map<String, dynamic>> _allRecipes = [];
+  List<Map<String, dynamic>> _filtered = [];
+  String _selectedCategory = 'Todos';
+  bool _loading = true;
 
-  static const _categories = [
-    ('todos', 'Todos'),
-    ('desayuno', 'Desayunos'),
-    ('almuerzo', 'Almuerzos'),
-    ('cena', 'Cenas'),
-    ('snack', 'Snacks'),
+  final List<String> _categories = [
+    'Todos',
+    'Desayunos',
+    'Almuerzos',
+    'Cenas',
+    'Snacks',
   ];
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    _loadRecipes();
   }
 
-  List<RecipeModel> _filtered(List<RecipeModel> all) {
-    return all.where((r) {
-      final matchCat =
-          _selectedCategory == 'todos' || r.category == _selectedCategory;
-      final matchSearch = _searchQuery.isEmpty ||
-          r.title.toLowerCase().contains(_searchQuery.toLowerCase());
-      return matchCat && matchSearch;
-    }).toList();
+  Future<void> _loadRecipes() async {
+    final data = await rootBundle.loadString('assets/content/recipes.json');
+    final list = json.decode(data) as List;
+    setState(() {
+      _allRecipes = list.cast<Map<String, dynamic>>();
+      _filtered = _allRecipes;
+      _loading = false;
+    });
+  }
+
+  void _filterByCategory(String category) {
+    setState(() {
+      _selectedCategory = category;
+      if (category == 'Todos') {
+        _filtered = _allRecipes;
+      } else {
+        final map = {
+          'Desayunos': 'desayuno',
+          'Almuerzos': 'almuerzo',
+          'Cenas': 'cena',
+          'Snacks': 'snack',
+        };
+        _filtered = _allRecipes
+            .where((r) => r['category'] == map[category])
+            .toList();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<RecipesProvider>();
-    final recipes = provider.recipes;
-    final filtered = _filtered(recipes);
-
-    // Featured: primera receta de la lista completa
-    final featured = recipes.isNotEmpty ? recipes.first : null;
-    // Recommended: resto de las recetas filtradas (sin la featured si está visible)
-    final recommended = filtered
-        .where((r) => featured == null || r.id != featured.id)
-        .toList();
-
     return Scaffold(
       backgroundColor: const Color(0xFFF7F4EF),
-      body: Column(
-        children: [
-          // ── AppBar personalizada ──────────────────────────────
-          _RecipesAppBar(
-            searchController: _searchController,
-            onSearchChanged: (v) => setState(() => _searchQuery = v),
-          ),
-
-          // ── Contenido scrollable ──────────────────────────────
-          Expanded(
-            child: provider.isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : ListView(
-                    padding: const EdgeInsets.only(bottom: 24),
+      body: SafeArea(
+        child: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                // Título estilo Actividad física
+                const Padding(
+                  padding: EdgeInsets.only(top: 8, bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Chips de categoría
-                      _CategoryChips(
-                        selected: _selectedCategory,
-                        onSelect: (cat) =>
-                            setState(() => _selectedCategory = cat),
-                        categories: _categories,
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Sección destacada (solo si no hay búsqueda activa)
-                      if (_searchQuery.isEmpty && featured != null) ...[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Destacados para ti',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF3D3D3D),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => setState(
-                                    () => _selectedCategory = 'todos'),
-                                child: const Text(
-                                  'Ver más',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: Color(0xFFA3B18A),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: _FeaturedCard(
-                            recipe: featured,
-                            onTap: () => _openDetail(featured),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                      ],
-
-                      // Sección recomendadas
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          _searchQuery.isNotEmpty
-                              ? 'Resultados de búsqueda'
-                              : 'Recetas recomendadas',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF3D3D3D),
-                          ),
+                      Text(
+                        'Recetas',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2D2D2D),
                         ),
                       ),
-                      const SizedBox(height: 12),
-
-                      if (recommended.isEmpty)
-                        const Padding(
-                          padding: EdgeInsets.all(40),
-                          child: Center(
-                            child: Text(
-                              'No hay recetas para esta categoría',
-                              style: TextStyle(
-                                color: Color(0xFF7A7A7A),
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        )
-                      else
-                        ...recommended.map(
-                          (recipe) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 6),
-                            child: _RecipeCard(
-                              recipe: recipe,
-                              isFavorite: _favorites.contains(recipe.id),
-                              onFavorite: () => setState(() {
-                                _favorites.contains(recipe.id)
-                                    ? _favorites.remove(recipe.id)
-                                    : _favorites.add(recipe.id);
-                              }),
-                              onTap: () => _openDetail(recipe),
-                            ),
-                          ),
-                        ),
+                      SizedBox(height: 2),
+                      Text(
+                        'Alimentación adaptada a tu salud',
+                        style: TextStyle(fontSize: 13, color: Color(0xFF888888)),
+                      ),
                     ],
                   ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _openDetail(RecipeModel recipe) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => RecipeDetailPage(recipe: recipe)),
-    );
-  }
-}
-
-// ── AppBar con buscador ───────────────────────────────────────
-
-class _RecipesAppBar extends StatelessWidget {
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchChanged;
-
-  const _RecipesAppBar({
-    required this.searchController,
-    required this.onSearchChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final top = MediaQuery.of(context).padding.top;
-    return Container(
-      color: const Color(0xFFA3B18A),
-      padding: EdgeInsets.fromLTRB(20, top + 12, 20, 16),
-      child: Column(
-        children: [
-          const Text(
-            'Recetas',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: TextField(
-                    controller: searchController,
-                    onChanged: onSearchChanged,
-                    style: const TextStyle(
-                        fontSize: 14, color: Color(0xFF3D3D3D)),
-                    decoration: const InputDecoration(
-                      hintText: 'Buscar recetas...',
-                      hintStyle:
-                          TextStyle(fontSize: 14, color: Color(0xFFAAAAAA)),
-                      prefixIcon: Icon(Icons.search,
-                          color: Color(0xFF5E5A55), size: 20),
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(vertical: 12),
+                ),
+                // Buscador (visual)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.05),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.search,
+                              color: Colors.grey.shade500,
+                              size: 22,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Buscar recetas...',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey.shade400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(14),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        Icons.tune,
+                        color: Colors.grey.shade600,
+                        size: 22,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Filtros de categoría
+                SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _categories.length,
+                    itemBuilder: (context, index) {
+                      final cat = _categories[index];
+                      final isSelected = _selectedCategory == cat;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: GestureDetector(
+                          onTap: () => _filterByCategory(cat),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? const Color(0xFFA3B18A)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.05),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              cat,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: isSelected
+                                    ? Colors.white
+                                    : const Color(0xFF5E5A55),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.tune,
-                  color: Color(0xFF5E5A55),
-                  size: 20,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+                const SizedBox(height: 24),
 
-// ── Chips de categoría ────────────────────────────────────────
+                // Destacado para ti
+                if (_selectedCategory == 'Todos' && _allRecipes.isNotEmpty) ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Destacados para ti',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF3D3D3D),
+                        ),
+                      ),
+                      Text(
+                        'Ver más',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  _FeaturedRecipeCard(recipe: _allRecipes[0]),
+                  const SizedBox(height: 24),
+                ],
 
-class _CategoryChips extends StatelessWidget {
-  final String selected;
-  final ValueChanged<String> onSelect;
-  final List<(String, String)> categories;
-
-  const _CategoryChips({
-    required this.selected,
-    required this.onSelect,
-    required this.categories,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 42,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        itemCount: categories.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
-        itemBuilder: (_, i) {
-          final (value, label) = categories[i];
-          final isSelected = selected == value;
-          return GestureDetector(
-            onTap: () => onSelect(value),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? const Color(0xFFA3B18A)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isSelected
-                      ? const Color(0xFFA3B18A)
-                      : const Color(0xFFE0E0E0),
+                // Recetas recomendadas
+                const Text(
+                  'Recetas recomendadas',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF3D3D3D),
+                  ),
                 ),
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: isSelected
-                      ? Colors.white
-                      : const Color(0xFF5E5A55),
-                ),
-              ),
+                const SizedBox(height: 12),
+
+                // Lista de recetas
+                if (_filtered.isEmpty)
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Text(
+                        'No hay recetas en esta categoría.',
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  ...(_selectedCategory == 'Todos'
+                          ? _filtered.skip(1)
+                          : _filtered)
+                      .map((recipe) => _RecipeCard(recipe: recipe)),
+              ],
             ),
-          );
-        },
-      ),
+        ),
     );
   }
 }
 
 // ── Tarjeta destacada ─────────────────────────────────────────
 
-class _FeaturedCard extends StatelessWidget {
-  final RecipeModel recipe;
-  final VoidCallback onTap;
+class _FeaturedRecipeCard extends StatelessWidget {
+  final Map<String, dynamic> recipe;
 
-  const _FeaturedCard({required this.recipe, required this.onTap});
+  const _FeaturedRecipeCard({required this.recipe});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: SizedBox(
-          height: 200,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // Imagen de fondo
-              _RecipeImage(
-                imageName: recipe.image,
-                fit: BoxFit.cover,
-              ),
-
-              // Overlay degradado
-              Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Colors.transparent,
-                      Color(0xCC6B8F5E),
-                    ],
-                    stops: [0.35, 1.0],
-                  ),
-                ),
-              ),
-
-              // Texto sobre la imagen (derecha)
-              Positioned(
-                right: 16,
-                top: 0,
-                bottom: 0,
-                width: 170,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recipe.title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        height: 1.3,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        const Icon(Icons.access_time,
-                            size: 14, color: Colors.white70),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${recipe.prepTime} min',
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.white70),
-                        ),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.edit_outlined,
-                            size: 14, color: Colors.white70),
-                        const SizedBox(width: 4),
-                        Text(
-                          recipe.difficulty,
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.white70),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        recipe.tag,
-                        style: const TextStyle(
-                            fontSize: 11, color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ── Tarjeta de receta ─────────────────────────────────────────
-
-class _RecipeCard extends StatelessWidget {
-  final RecipeModel recipe;
-  final bool isFavorite;
-  final VoidCallback onFavorite;
-  final VoidCallback onTap;
-
-  const _RecipeCard({
-    required this.recipe,
-    required this.isFavorite,
-    required this.onFavorite,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            // Imagen
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-              ),
-              child: SizedBox(
-                width: 110,
-                height: 100,
-                child: _RecipeImage(
-                  imageName: recipe.image,
-                  fit: BoxFit.cover,
-                ),
-              ),
+            // Imagen de fondo
+            Image.asset(
+              'assets/branding/${recipe['image']}',
+              fit: BoxFit.cover,
+              errorBuilder: (ctx, e, s) =>
+                  Container(color: const Color(0xFFA3B18A)),
             ),
-
-            // Info
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recipe.title,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF3D3D3D),
-                        height: 1.3,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(Icons.access_time,
-                            size: 13, color: Color(0xFF7A7A7A)),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${recipe.prepTime} min',
-                          style: const TextStyle(
-                              fontSize: 12, color: Color(0xFF7A7A7A)),
-                        ),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.edit_outlined,
-                            size: 13, color: Color(0xFF7A7A7A)),
-                        const SizedBox(width: 4),
-                        Text(
-                          recipe.difficulty,
-                          style: const TextStyle(
-                              fontSize: 12, color: Color(0xFF7A7A7A)),
-                        ),
-                      ],
-                    ),
+            // Overlay verde
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Colors.transparent,
+                    const Color(0xFFA3B18A).withValues(alpha: 0.85),
                   ],
                 ),
               ),
             ),
-
-            // Corazón
-            GestureDetector(
-              onTap: onFavorite,
-              child: Padding(
-                padding: const EdgeInsets.all(14),
-                child: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  size: 22,
-                  color: isFavorite
-                      ? const Color(0xFFE57373)
-                      : const Color(0xFF7A7A7A),
-                ),
+            // Contenido
+            Positioned(
+              right: 16,
+              top: 0,
+              bottom: 0,
+              width: 180,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recipe['title'],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      height: 1.3,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.access_time,
+                        color: Colors.white70,
+                        size: 14,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${recipe['prepTime']} min',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Icon(
+                        Icons.edit_outlined,
+                        color: Colors.white70,
+                        size: 14,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        recipe['difficulty'],
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    recipe['tag'],
+                    style: const TextStyle(color: Colors.white60, fontSize: 12),
+                  ),
+                ],
               ),
             ),
           ],
@@ -531,28 +380,151 @@ class _RecipeCard extends StatelessWidget {
   }
 }
 
-// ── Widget de imagen con fallback ─────────────────────────────
+// ── Tarjeta de receta ─────────────────────────────────────────
 
-class _RecipeImage extends StatelessWidget {
-  final String imageName;
-  final BoxFit fit;
+class _RecipeCard extends StatefulWidget {
+  final Map<String, dynamic> recipe;
 
-  const _RecipeImage({required this.imageName, required this.fit});
+  const _RecipeCard({required this.recipe});
+
+  @override
+  State<_RecipeCard> createState() => _RecipeCardState();
+}
+
+class _RecipeCardState extends State<_RecipeCard> {
+  bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/branding/$imageName',
-      fit: fit,
-      errorBuilder: (_, _, _) => Container(
-        color: const Color(0xFFE8EFE0),
-        child: const Center(
-          child: Icon(
-            Icons.restaurant,
-            size: 32,
-            color: Color(0xFFA3B18A),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
-        ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Imagen
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+            ),
+            child: Image.asset(
+              'assets/branding/${widget.recipe['image']}',
+              width: 110,
+              height: 110,
+              fit: BoxFit.cover,
+              errorBuilder: (ctx, e, s) => Container(
+                width: 110,
+                height: 110,
+                color: const Color(0xFFE8EFE0),
+                child: const Icon(
+                  Icons.restaurant,
+                  color: Color(0xFFA3B18A),
+                  size: 32,
+                ),
+              ),
+            ),
+          ),
+          // Contenido
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.recipe['title'],
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF3D3D3D),
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => setState(() => _isFavorite = !_isFavorite),
+                        child: Icon(
+                          _isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: _isFavorite
+                              ? Colors.red.shade400
+                              : Colors.grey.shade400,
+                          size: 22,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.access_time,
+                        size: 14,
+                        color: Colors.grey.shade500,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${widget.recipe['prepTime']} min',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Icon(
+                        Icons.edit_outlined,
+                        size: 14,
+                        color: Colors.grey.shade500,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        widget.recipe['difficulty'],
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (widget.recipe['tag'] != null) ...[
+                    const SizedBox(height: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE8EFE0),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        widget.recipe['tag'],
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF5E5A55),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

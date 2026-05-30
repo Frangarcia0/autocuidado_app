@@ -7,6 +7,7 @@ import 'shared/providers/habits_provider.dart';
 import 'shared/providers/recommendations_provider.dart';
 import 'shared/providers/education_provider.dart';
 import 'shared/providers/recipes_provider.dart';
+import 'shared/providers/exercise_provider.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -20,6 +21,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RecommendationsProvider()),
         ChangeNotifierProvider(create: (_) => EducationProvider()),
         ChangeNotifierProvider(create: (_) => RecipesProvider()),
+        ChangeNotifierProvider(create: (_) => ExerciseProvider()),
       ],
       child: const _AppWithInit(),
     );
@@ -46,6 +48,7 @@ class _AppWithInitState extends State<_AppWithInit> {
     final recsProvider = context.read<RecommendationsProvider>();
     final eduProvider = context.read<EducationProvider>();
     final recipesProvider = context.read<RecipesProvider>();
+    final exerciseProvider = context.read<ExerciseProvider>();
 
     await userProvider.loadUser();
     if (!mounted) return;
@@ -55,6 +58,7 @@ class _AppWithInitState extends State<_AppWithInit> {
     await recsProvider.loadForCondition(condition);
     await eduProvider.loadForCondition(condition);
     await recipesProvider.loadRecipes();
+    await exerciseProvider.load();
   }
 
   @override
