@@ -1,0 +1,218 @@
+[
+  {
+    "id": "rec_001",
+    "title": "Salmón al horno con vegetales asados",
+    "category": "cena",
+    "condition": "both",
+    "prepTime": 30,
+    "difficulty": "Fácil",
+    "tag": "Bajo en carbohidratos",
+    "image": "recipe_salmon.jpg",
+    "ingredients": [
+      "200g de filete de salmón",
+      "1 zapallo italiano mediano",
+      "1 zanahoria",
+      "1 cdta de aceite de oliva",
+      "Jugo de medio limón",
+      "Romero fresco, sal y pimienta al gusto"
+    ],
+    "steps": [
+      "Precalentar el horno a 180°C.",
+      "Cortar los vegetales en trozos medianos y disponerlos en una bandeja.",
+      "Condimentar el salmón con limón, romero, sal y pimienta.",
+      "Rociar todo con aceite de oliva.",
+      "Hornear por 25-30 minutos hasta que el salmón esté cocido."
+    ],
+    "nutritionalNote": "Rico en omega-3 y proteínas. Bajo índice glucémico. Ayuda a reducir la inflamación.",
+    "source": "Adaptado de guía alimentaria MINSAL 2023",
+    "imageUrl": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80"
+  },
+  {
+    "id": "rec_002",
+    "title": "Ensalada de quinoa y verduras",
+    "category": "almuerzo",
+    "condition": "both",
+    "prepTime": 30,
+    "difficulty": "Fácil",
+    "tag": "Alto en fibra",
+    "image": "recipe_quinoa.jpg",
+    "ingredients": [
+      "1 taza de quinoa cocida",
+      "1/2 taza de edamame",
+      "1 zanahoria rallada",
+      "1/4 repollo morado",
+      "1 pimentón rojo",
+      "Jugo de limón, aceite de oliva y cilantro al gusto"
+    ],
+    "steps": [
+      "Cocinar la quinoa según instrucciones del paquete y dejar enfriar.",
+      "Picar finamente el repollo y el pimentón.",
+      "Mezclar todos los ingredientes en un bowl.",
+      "Aliñar con limón, aceite de oliva y cilantro.",
+      "Refrigerar 10 minutos antes de servir."
+    ],
+    "nutritionalNote": "La quinoa tiene bajo índice glucémico y es fuente de proteína completa. Ideal para diabetes e hipertensión.",
+    "source": "Adaptado de American Diabetes Association",
+    "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+  },
+  {
+    "id": "rec_003",
+    "title": "Tortilla de espinaca",
+    "category": "desayuno",
+    "condition": "both",
+    "prepTime": 15,
+    "difficulty": "Fácil",
+    "tag": "Alto en proteínas",
+    "image": "recipe_tortilla.jpg",
+    "ingredients": [
+      "2 huevos",
+      "1 taza de espinacas frescas",
+      "1/4 cebolla picada",
+      "1 cdta de aceite de oliva",
+      "Sal y pimienta al gusto"
+    ],
+    "steps": [
+      "Batir los huevos con sal y pimienta.",
+      "Saltear la cebolla en aceite de oliva por 2 minutos.",
+      "Agregar las espinacas y cocinar 1 minuto más.",
+      "Verter los huevos batidos sobre las verduras.",
+      "Cocinar a fuego medio hasta que esté firme. Doblar y servir."
+    ],
+    "nutritionalNote": "Las espinacas son ricas en potasio, beneficioso para la presión arterial. Bajo en carbohidratos.",
+    "source": "Adaptado de guía MINSAL Chile",
+    "imageUrl": "https://images.unsplash.com/photo-1565299715199-866c917206bb?w=800&q=80"
+  },
+  {
+    "id": "rec_004",
+    "title": "Pudín de chía con frutos rojos",
+    "category": "snack",
+    "condition": "both",
+    "prepTime": 10,
+    "difficulty": "Fácil",
+    "tag": "Sin azúcar añadida",
+    "image": "recipe_chia.jpg",
+    "ingredients": [
+      "3 cdas de semillas de chía",
+      "1 taza de leche vegetal sin azúcar",
+      "1/2 taza de frutos rojos frescos",
+      "1 cdta de esencia de vainilla",
+      "Stevia al gusto"
+    ],
+    "steps": [
+      "Mezclar la chía con la leche vegetal y la vainilla.",
+      "Endulzar con stevia al gusto.",
+      "Refrigerar mínimo 4 horas o de un día para otro.",
+      "Al servir, agregar los frutos rojos encima."
+    ],
+    "nutritionalNote": "La chía es rica en fibra y omega-3. Los frutos rojos tienen bajo índice glucémico y antioxidantes.",
+    "source": "Adaptado de American Diabetes Association",
+    "imageUrl": "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=800&q=80"
+  },
+  {
+    "id": "rec_005",
+    "title": "Avena con manzana y canela",
+    "category": "desayuno",
+    "condition": "diabetes",
+    "prepTime": 10,
+    "difficulty": "Fácil",
+    "tag": "Bajo índice glucémico",
+    "image": "recipe_salmon.jpg",
+    "ingredients": [
+      "1/2 taza de avena en hojuelas",
+      "1 taza de agua o leche descremada",
+      "1/2 manzana verde picada",
+      "1/2 cdta de canela",
+      "Stevia al gusto"
+    ],
+    "steps": [
+      "Cocinar la avena con el líquido a fuego medio por 5 minutos.",
+      "Agregar la manzana picada y la canela.",
+      "Revolver bien y cocinar 2 minutos más.",
+      "Servir caliente con stevia al gusto."
+    ],
+    "nutritionalNote": "La avena tiene bajo índice glucémico. La canela ayuda a mejorar la sensibilidad a la insulina.",
+    "source": "Adaptado de guía alimentaria MINSAL 2023",
+    "imageUrl": "https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=800&q=80"
+  },
+  {
+    "id": "rec_006",
+    "title": "Pollo a las hierbas con arroz integral",
+    "category": "almuerzo",
+    "condition": "hypertension",
+    "prepTime": 35,
+    "difficulty": "Fácil",
+    "tag": "Bajo en sodio",
+    "image": "recipe_quinoa.jpg",
+    "ingredients": [
+      "150g de pechuga de pollo",
+      "1/2 taza de arroz integral cocido",
+      "Orégano, tomillo y ajo en polvo",
+      "Jugo de limón",
+      "1 cdta de aceite de oliva"
+    ],
+    "steps": [
+      "Marinar el pollo con limón, orégano, tomillo y ajo en polvo por 15 minutos.",
+      "Cocinar a la plancha con aceite de oliva por 6-7 minutos por lado.",
+      "Servir junto al arroz integral cocido.",
+      "Condimentar sin sal — usar limón y hierbas para dar sabor."
+    ],
+    "nutritionalNote": "Bajo en sodio. El arroz integral aporta fibra y tiene menor impacto en la presión arterial que el arroz blanco.",
+    "source": "Adaptado de American Heart Association",
+    "imageUrl": "https://images.unsplash.com/photo-1598103442097-8b74394b95c7?w=800&q=80"
+  },
+  {
+    "id": "rec_007",
+    "title": "Hummus con bastones de verduras",
+    "category": "snack",
+    "condition": "both",
+    "prepTime": 15,
+    "difficulty": "Fácil",
+    "tag": "Rico en fibra",
+    "image": "recipe_chia.jpg",
+    "ingredients": [
+      "1 taza de garbanzos cocidos",
+      "2 cdas de jugo de limón",
+      "1 diente de ajo",
+      "1 cda de aceite de oliva",
+      "Zanahoria, apio y pepino para mojar"
+    ],
+    "steps": [
+      "Procesar los garbanzos con limón, ajo y aceite hasta obtener una pasta suave.",
+      "Agregar agua de a poco si es necesario para la consistencia.",
+      "Cortar las verduras en bastones.",
+      "Servir el hummus con los bastones de verduras."
+    ],
+    "nutritionalNote": "Los garbanzos tienen bajo índice glucémico. El hummus es fuente de proteína vegetal y fibra.",
+    "source": "Adaptado de guía alimentaria MINSAL 2023",
+    "imageUrl": "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800&q=80"
+  },
+  {
+    "id": "rec_008",
+    "title": "Sopa de lentejas con verduras",
+    "category": "cena",
+    "condition": "both",
+    "prepTime": 40,
+    "difficulty": "Fácil",
+    "tag": "Alto en fibra",
+    "image": "recipe_tortilla.jpg",
+    "ingredients": [
+      "1 taza de lentejas",
+      "1 zanahoria picada",
+      "1 papa pequeña",
+      "1/2 cebolla",
+      "1 diente de ajo",
+      "Comino, sal mínima y perejil"
+    ],
+    "steps": [
+      "Remojar las lentejas 30 minutos y escurrir.",
+      "Sofreír cebolla y ajo en aceite de oliva.",
+      "Agregar zanahoria y papa picadas, saltear 2 minutos.",
+      "Incorporar las lentejas y cubrir con agua.",
+      "Cocinar a fuego medio por 25-30 minutos hasta que estén blandas.",
+      "Sazonar con comino y perejil."
+    ],
+    "nutritionalNote": "Las lentejas tienen bajo índice glucémico y son ricas en potasio, beneficioso para la presión arterial.",
+    "source": "Adaptado de American Heart Association",
+    "imageUrl": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80"
+  }
+]

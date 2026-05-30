@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart' show Share;
 import '../../shared/providers/user_provider.dart';
 import '../../shared/services/preferences_service.dart';
 import 'edit_profile_page.dart';
@@ -133,19 +134,23 @@ class ProfilePage extends StatelessWidget {
                               onTap: () => _openEdit(context),
                               child: Row(
                                 children: [
-                                  const Icon(
-                                    Icons.help_outline,
-                                    size: 16,
-                                    color: Color(0xFFE57373),
-                                  ),
-                                  const SizedBox(width: 4),
+                                  if (user.gender == null) ...[
+                                    const Icon(
+                                      Icons.help_outline,
+                                      size: 16,
+                                      color: Color(0xFFE57373),
+                                    ),
+                                    const SizedBox(width: 4),
+                                  ],
                                   Text(
                                     user.gender != null
                                         ? _genderLabel(user.gender!)
                                         : 'Género',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF777777),
+                                      color: user.gender != null
+                                          ? const Color(0xFF555555)
+                                          : const Color(0xFF777777),
                                     ),
                                   ),
                                   const SizedBox(width: 6),
@@ -269,7 +274,7 @@ class ProfilePage extends StatelessWidget {
                     iconColor: const Color(0xFF6B8F55),
                     title: 'Exportar mis datos',
                     subtitle: 'Descarga tu información personal',
-                    onTap: () {},
+                    onTap: () => _exportData(context, user),
                   ),
                   const _OptionDivider(),
                   _ProfileOption(
@@ -348,6 +353,71 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _exportData(BuildContext context, UserProvider user) {
+    final now = DateTime.now();
+    final date =
+        '${now.day.toString().padLeft(2, '0')}/'
+        '${now.month.toString().padLeft(2, '0')}/'
+        '${now.year}';
+
+    final buffer = StringBuffer();
+    buffer.writeln('════════════════════════════════');
+    buffer.writeln('   INFORME DE SALUD EIRA');
+    buffer.writeln('   Generado el $date');
+    buffer.writeln('════════════════════════════════');
+    buffer.writeln();
+    buffer.writeln('── INFORMACIÓN PERSONAL ──');
+    buffer.writeln('Nombre:       ${user.displayName}');
+    if (user.user?.age != null) {
+      buffer.writeln('Edad:         ${user.user!.age} años');
+    }
+    if (user.birthDate != null) {
+      buffer.writeln('Nacimiento:   ${user.birthDate}');
+    }
+    if (user.gender != null) {
+      buffer.writeln('Sexo:         ${_genderLabel(user.gender!)}');
+    }
+    if (user.height != null) {
+      buffer.writeln('Estatura:     ${user.height!.toStringAsFixed(0)} cm');
+    }
+    if (user.weight != null) {
+      buffer.writeln('Peso:         ${user.weight!.toStringAsFixed(0)} kg');
+    }
+    buffer.writeln();
+    buffer.writeln('── CONDICIÓN DE SALUD ──');
+    buffer.writeln('Condición:    ${_conditionLabel(user.condition)}');
+    buffer.writeln();
+    buffer.writeln('── NOTAS ──');
+    buffer.writeln('Este informe fue generado automáticamente');
+    buffer.writeln('por la app Eira. Los datos son solo de');
+    buffer.writeln('referencia personal.');
+    buffer.writeln();
+    buffer.writeln('════════════════════════════════');
+    buffer.writeln('Eira · Tu salud, tu prioridad');
+
+    Share.share(
+      buffer.toString(),
+      subject: 'Mi informe de salud - Eira',
+    );
+  }
+
+  String _conditionLabel(String condition) {
+    switch (condition) {
+      case 'diabetes':
+        return 'Diabetes';
+      case 'hypertension':
+        return 'Hipertensión';
+      case 'insulin_resistance':
+        return 'Resistencia a la insulina';
+      case 'both':
+        return 'Diabetes e Hipertensión';
+      case 'hypertension_insulin':
+        return 'Hipertensión y Resistencia a la insulina';
+      default:
+        return condition;
+    }
   }
 
   void _openEdit(BuildContext context) {

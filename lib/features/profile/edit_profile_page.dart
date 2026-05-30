@@ -18,7 +18,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _birthDateController = TextEditingController();
   final _heightController = TextEditingController();
   final _weightController = TextEditingController();
-  String _selectedCondition = 'diabetes';
+  // Multi-select de condiciones
+  final Set<String> _selectedConditions = {};
   String? _selectedGender;
 
   static const _green = Color(0xFF6B8F55);
@@ -30,7 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final user = context.read<UserProvider>().user;
     if (user != null) {
       _nameController.text = user.name;
-      _selectedCondition = user.condition;
+      _selectedConditions.addAll(_conditionStringToSet(user.condition));
       _selectedGender = user.gender;
       if (user.birthDate != null) {
         _birthDateController.text = user.birthDate!;
@@ -56,7 +57,57 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.dispose();
   }
 
-  bool get _canSave => _nameController.text.trim().isNotEmpty;
+  bool get _canSave =>
+      _nameController.text.trim().isNotEmpty && _selectedConditions.isNotEmpty;
+
+  // Convierte el string de condición guardado a un Set
+  Set<String> _conditionStringToSet(String condition) {
+    switch (condition) {
+      case 'both':
+        return {'diabetes', 'hypertension'};
+      case 'hypertension_insulin':
+        return {'hypertension', 'insulin_resistance'};
+      default:
+        return {condition};
+    }
+  }
+
+  // Convierte el Set de condiciones al string de almacenamiento
+  String _conditionSetToString(Set<String> conditions) {
+    if (conditions.containsAll({'diabetes', 'hypertension'})) return 'both';
+    if (conditions.containsAll({'hypertension', 'insulin_resistance'})) {
+      return 'hypertension_insulin';
+    }
+    return conditions.first;
+  }
+
+  void _toggleCondition(String value) {
+    setState(() {
+      if (_selectedConditions.contains(value)) {
+        // Deseleccionar solo si quedaría al menos una
+        if (_selectedConditions.length > 1) _selectedConditions.remove(value);
+      } else {
+        // Regla: diabetes y resistencia a la insulina no pueden coexistir
+        if (value == 'diabetes') _selectedConditions.remove('insulin_resistance');
+        if (value == 'insulin_resistance') _selectedConditions.remove('diabetes');
+        // Máximo 2 condiciones
+        if (_selectedConditions.length >= 2) return;
+        _selectedConditions.add(value);
+      }
+    });
+  }
+
+  bool _isDisabled(String value) {
+    if (_selectedConditions.contains(value)) return false;
+    if (value == 'diabetes' && _selectedConditions.contains('insulin_resistance')) {
+      return true;
+    }
+    if (value == 'insulin_resistance' && _selectedConditions.contains('diabetes')) {
+      return true;
+    }
+    if (_selectedConditions.length >= 2) return true;
+    return false;
+  }
 
   int _ageFromBirthDate(String bd) {
     try {
@@ -87,7 +138,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final updated = UserModel(
       name: _nameController.text.trim(),
       age: age,
-      condition: _selectedCondition,
+      condition: _conditionSetToString(_selectedConditions),
       height: double.tryParse(_heightController.text),
       weight: double.tryParse(_weightController.text),
       gender: _selectedGender,
@@ -100,13 +151,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final habitsProvider = context.read<HabitsProvider>();
     final recsProvider = context.read<RecommendationsProvider>();
     final eduProvider = context.read<EducationProvider>();
+    final newCondition = _conditionSetToString(_selectedConditions);
     final oldCondition = userProvider.condition;
     await userProvider.updateUser(updated);
 
-    if (oldCondition != _selectedCondition && mounted) {
-      await habitsProvider.loadHabitsForCondition(_selectedCondition);
-      await recsProvider.loadForCondition(_selectedCondition);
-      await eduProvider.loadForCondition(_selectedCondition);
+    if (oldCondition != newCondition && mounted) {
+      await habitsProvider.loadHabitsForCondition(newCondition);
+      await recsProvider.loadForCondition(newCondition);
+      await eduProvider.loadForCondition(newCondition);
     }
 
     if (mounted) Navigator.pop(context);
@@ -266,6 +318,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ],
                         ),
                       ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 12),
+                        child: Text(
+                          'Puedes seleccionar hasta 2 condiciones compatibles.',
+                          style: TextStyle(fontSize: 12, color: Color(0xFF888888)),
+                        ),
+                      ),
                       ...[
                         ('Diabetes', Icons.water_drop_outlined, 'diabetes'),
                         ('Hipertensión', Icons.favorite_outline, 'hypertension'),
@@ -274,19 +333,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Icons.monitor_heart_outlined,
                           'insulin_resistance'
                         ),
-                        (
-                          'Diabetes e hipertensión',
-                          Icons.health_and_safety_outlined,
-                          'both'
-                        ),
                       ].map(
                         (item) => _ConditionTile(
                           label: item.$1,
                           icon: item.$2,
                           value: item.$3,
-                          selected: _selectedCondition == item.$3,
-                          onTap: () =>
-                              setState(() => _selectedCondition = item.$3),
+                          selected: _selectedConditions.contains(item.$3),
+                          disabled: _isDisabled(item.$3),
+                          onTap: () => _toggleCondition(item.$3),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -528,7 +582,6 @@ class _GenderField extends StatelessWidget {
   static const _options = [
     ('Femenino', 'femenino'),
     ('Masculino', 'masculino'),
-    ('Otro', 'otro'),
   ];
 
   @override
@@ -609,6 +662,7 @@ class _ConditionTile extends StatelessWidget {
   final IconData icon;
   final String value;
   final bool selected;
+  final bool disabled;
   final VoidCallback onTap;
 
   const _ConditionTile({
@@ -617,47 +671,51 @@ class _ConditionTile extends StatelessWidget {
     required this.value,
     required this.selected,
     required this.onTap,
+    this.disabled = false,
   });
 
   @override
   Widget build(BuildContext context) {
     const green = Color(0xFF6B8F55);
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Row(
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: selected
-                    ? green.withValues(alpha: 0.12)
-                    : const Color(0xFFF4F7EF),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                size: 18,
-                color: selected ? green : const Color(0xFF888888),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight:
-                      selected ? FontWeight.bold : FontWeight.normal,
-                  color: selected ? green : const Color(0xFF2D2D2D),
+    return AnimatedOpacity(
+      opacity: disabled ? 0.35 : 1.0,
+      duration: const Duration(milliseconds: 200),
+      child: InkWell(
+        onTap: disabled ? null : onTap,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: selected
+                      ? green.withValues(alpha: 0.12)
+                      : const Color(0xFFF4F7EF),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  icon,
+                  size: 18,
+                  color: selected ? green : const Color(0xFF888888),
                 ),
               ),
-            ),
-            if (selected)
-              const Icon(Icons.check_circle, color: green, size: 20),
-          ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                    color: selected ? green : const Color(0xFF2D2D2D),
+                  ),
+                ),
+              ),
+              if (selected)
+                const Icon(Icons.check_circle, color: green, size: 20),
+            ],
+          ),
         ),
       ),
     );

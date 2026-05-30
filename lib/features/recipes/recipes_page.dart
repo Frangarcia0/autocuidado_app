@@ -295,11 +295,9 @@ class _FeaturedRecipeCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             // Imagen de fondo
-            Image.asset(
-              'assets/branding/${recipe['image']}',
+            _RecipeImage(
+              url: recipe['imageUrl'] as String? ?? '',
               fit: BoxFit.cover,
-              errorBuilder: (ctx, e, s) =>
-                  Container(color: const Color(0xFFA3B18A)),
             ),
             // Overlay verde
             Container(
@@ -417,21 +415,11 @@ class _RecipeCardState extends State<_RecipeCard> {
               topLeft: Radius.circular(16),
               bottomLeft: Radius.circular(16),
             ),
-            child: Image.asset(
-              'assets/branding/${widget.recipe['image']}',
+            child: _RecipeImage(
+              url: widget.recipe['imageUrl'] as String? ?? '',
               width: 110,
               height: 110,
               fit: BoxFit.cover,
-              errorBuilder: (ctx, e, s) => Container(
-                width: 110,
-                height: 110,
-                color: const Color(0xFFE8EFE0),
-                child: const Icon(
-                  Icons.restaurant,
-                  color: Color(0xFFA3B18A),
-                  size: 32,
-                ),
-              ),
             ),
           ),
           // Contenido
@@ -526,6 +514,57 @@ class _RecipeCardState extends State<_RecipeCard> {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ── Imagen de receta (network con fallback) ───────────────────
+
+class _RecipeImage extends StatelessWidget {
+  final String url;
+  final double? width;
+  final double? height;
+  final BoxFit fit;
+
+  const _RecipeImage({
+    required this.url,
+    this.width,
+    this.height,
+    this.fit = BoxFit.cover,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (url.isEmpty) return _placeholder();
+    return Image.network(
+      url,
+      width: width,
+      height: height,
+      fit: fit,
+      loadingBuilder: (ctx, child, progress) {
+        if (progress == null) return child;
+        return Container(
+          width: width,
+          height: height,
+          color: const Color(0xFFE8EFE0),
+          child: const Center(
+            child: CircularProgressIndicator(
+              color: Color(0xFFA3B18A),
+              strokeWidth: 2,
+            ),
+          ),
+        );
+      },
+      errorBuilder: (ctx, e, s) => _placeholder(),
+    );
+  }
+
+  Widget _placeholder() {
+    return Container(
+      width: width,
+      height: height,
+      color: const Color(0xFFE8EFE0),
+      child: const Icon(Icons.restaurant, color: Color(0xFFA3B18A), size: 32),
     );
   }
 }
