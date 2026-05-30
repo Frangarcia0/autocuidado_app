@@ -2,8 +2,10 @@ class UserModel {
   final String name;
   final String condition;
   final int age;
-  final double? height; // en centímetros
-  final double? weight; // en kilogramos
+  final double? height;   // en centímetros
+  final double? weight;   // en kilogramos
+  final String? gender;   // 'femenino' | 'masculino' | 'otro' | null
+  final String? birthDate; // formato DD-MM-YYYY
 
   const UserModel({
     required this.name,
@@ -11,6 +13,8 @@ class UserModel {
     required this.age,
     this.height,
     this.weight,
+    this.gender,
+    this.birthDate,
   });
 
   UserModel copyWith({
@@ -19,6 +23,8 @@ class UserModel {
     int? age,
     double? height,
     double? weight,
+    String? gender,
+    String? birthDate,
   }) {
     return UserModel(
       name: name ?? this.name,
@@ -26,6 +32,8 @@ class UserModel {
       age: age ?? this.age,
       height: height ?? this.height,
       weight: weight ?? this.weight,
+      gender: gender ?? this.gender,
+      birthDate: birthDate ?? this.birthDate,
     );
   }
 
@@ -35,6 +43,8 @@ class UserModel {
     'age': age,
     if (height != null) 'height': height,
     if (weight != null) 'weight': weight,
+    if (gender != null) 'gender': gender,
+    if (birthDate != null) 'birthDate': birthDate,
   };
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -44,6 +54,8 @@ class UserModel {
       age: map['age'] as int,
       height: map['height'] != null ? (map['height'] as num).toDouble() : null,
       weight: map['weight'] != null ? (map['weight'] as num).toDouble() : null,
+      gender: map['gender'] as String?,
+      birthDate: map['birthDate'] as String?,
     );
   }
 }

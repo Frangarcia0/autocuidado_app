@@ -10,6 +10,8 @@ class PreferencesService {
   static const _keyUserCondition = 'user_condition';
   static const _keyUserHeight = 'user_height';
   static const _keyUserWeight = 'user_weight';
+  static const _keyUserGender = 'user_gender';
+  static const _keyUserBirthDate = 'user_birth_date';
   static const _keyHabitsLastDate = 'habits_last_date';
   static const _keyHabitsCompleted = 'habits_completed';
   static const _keyStreakDays = 'streak_days';
@@ -36,6 +38,8 @@ class PreferencesService {
     required String condition,
     double? height,
     double? weight,
+    String? gender,
+    String? birthDate,
   }) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyUserName, name);
@@ -43,6 +47,8 @@ class PreferencesService {
     await prefs.setString(_keyUserCondition, condition);
     if (height != null) await prefs.setDouble(_keyUserHeight, height);
     if (weight != null) await prefs.setDouble(_keyUserWeight, weight);
+    if (gender != null) await prefs.setString(_keyUserGender, gender);
+    if (birthDate != null) await prefs.setString(_keyUserBirthDate, birthDate);
   }
 
   Future<Map<String, dynamic>?> getUserProfile() async {
@@ -55,6 +61,8 @@ class PreferencesService {
       'condition': prefs.getString(_keyUserCondition) ?? 'both',
       'height': prefs.getDouble(_keyUserHeight),
       'weight': prefs.getDouble(_keyUserWeight),
+      'gender': prefs.getString(_keyUserGender),
+      'birthDate': prefs.getString(_keyUserBirthDate),
     };
   }
 

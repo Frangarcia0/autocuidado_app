@@ -15,6 +15,8 @@ class UserProvider extends ChangeNotifier {
   String get condition => _user?.condition ?? 'both';
   double? get height => _user?.height;
   double? get weight => _user?.weight;
+  String? get gender => _user?.gender;
+  String? get birthDate => _user?.birthDate;
 
   Future<void> loadUser() async {
     _isLoading = true;
@@ -36,6 +38,8 @@ class UserProvider extends ChangeNotifier {
       condition: updated.condition,
       height: updated.height,
       weight: updated.weight,
+      gender: updated.gender,
+      birthDate: updated.birthDate,
     );
     _user = updated;
     notifyListeners();
