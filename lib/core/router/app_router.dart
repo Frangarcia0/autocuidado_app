@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/home/home_page.dart';
 import '../../features/habits/habits_page.dart';
+import '../../features/recipes/recipes_page.dart';
+import '../../features/exercise/exercise_page.dart';
 import '../../features/recommendations/recommendations_page.dart';
 import '../../features/education/education_page.dart';
 import '../../features/profile/profile_page.dart';
@@ -24,6 +26,14 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: '/habits',
           builder: (context, state) => const HabitsPage(),
+        ),
+        GoRoute(
+          path: '/recipes',
+          builder: (context, state) => const RecipesPage(),
+        ),
+        GoRoute(
+          path: '/exercise',
+          builder: (context, state) => const ExercisePage(),
         ),
         GoRoute(
           path: '/recommendations',

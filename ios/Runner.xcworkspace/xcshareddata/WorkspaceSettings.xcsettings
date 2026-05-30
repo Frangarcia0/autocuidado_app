@@ -1,58 +1,8 @@
-[
-  {
-    "id": "rd1",
-    "category": "alimentacion",
-    "title": "Controla los carbohidratos",
-    "body": "Prefiere arroz integral sobre arroz blanco. Una porción equivale a media taza cocida. Los carbohidratos complejos elevan la glucosa más lentamente.",
-    "icon": "restaurant"
-  },
-  {
-    "id": "rd2",
-    "category": "alimentacion",
-    "title": "El sopaipilla ocasional está bien",
-    "body": "No se trata de eliminar alimentos, sino de controlar la frecuencia y porción. Un sopaipilla de vez en cuando no arruina tu control glucémico.",
-    "icon": "restaurant"
-  },
-  {
-    "id": "rd3",
-    "category": "alimentacion",
-    "title": "Legumbres como aliadas",
-    "body": "Las lentejas, porotos y garbanzos tienen bajo índice glucémico y alto contenido en fibra. Son una excelente base para almuerzos.",
-    "icon": "restaurant"
-  },
-  {
-    "id": "rd4",
-    "category": "ejercicio",
-    "title": "Caminar después de comer",
-    "body": "Una caminata suave de 10 a 15 minutos después del almuerzo ayuda a reducir el peak de glucosa postprandial. No necesitas ir al gimnasio.",
-    "icon": "directions_walk"
-  },
-  {
-    "id": "rd5",
-    "category": "ejercicio",
-    "title": "Ejercicio de resistencia",
-    "body": "Ejercicios como sentadillas o planchas mejoran la sensibilidad a la insulina. Empieza con 10 minutos al día y aumenta gradualmente.",
-    "icon": "directions_walk"
-  },
-  {
-    "id": "rd6",
-    "category": "hidratacion",
-    "title": "Agua antes que jugos",
-    "body": "Los jugos naturales, aunque saludables, contienen azúcar. Prefiere agua como bebida principal. El té sin azúcar también es una buena opción.",
-    "icon": "water_drop"
-  },
-  {
-    "id": "rd7",
-    "category": "bienestar",
-    "title": "El estrés afecta la glucosa",
-    "body": "El estrés crónico eleva el cortisol, que a su vez sube la glucosa. Técnicas como respiración profunda o una caminata pueden ayudar.",
-    "icon": "self_improvement"
-  },
-  {
-    "id": "rd8",
-    "category": "bienestar",
-    "title": "Duerme bien",
-    "body": "Dormir menos de 6 horas altera la regulación de la glucosa. Intenta mantener horarios regulares de sueño.",
-    "icon": "self_improvement"
-  }
-]
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreviewsEnabled</key>
+	<false/>
+</dict>
+</plist>

@@ -9,7 +9,20 @@
       "Bash(flutter build *)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\estel\\\\Desktop\\\\Proyectos\\\\Develop\\\\Eira\\\\autocuidado_app\\\\assets\\\\content\" -File)",
       "Bash(Select-Object Name)",
-      "Bash(Sort-Object Name)"
+      "Bash(Sort-Object Name)",
+      "Bash(flutter clean *)",
+      "Bash(dart fix *)",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\estel\\\\.claude\\\\projects\\\\C--Users-estel-Desktop-Proyectos-Develop-Eira-autocuidado-app\\\\ccb3ad31-c46b-4230-9099-4312e2022c61.jsonl' | Select-String -Pattern 'class RecipesPage|RecipeCategory|RecipeCard|recipes_page' | Select-Object -First 10\")",
+      "Bash(python -c \"from pypdf import PdfReader; r = PdfReader\\(r'C:\\\\Users\\\\estel\\\\Downloads\\\\Agregar algo de texto.pdf'\\); print\\(len\\(r.pages\\)\\); [print\\(f'--- Page {i+1} ---\\\\n', r.pages[i].extract_text\\(\\)\\) for i in range\\(len\\(r.pages\\)\\)]\")",
+      "Bash(pip install *)",
+      "Bash(python -c \"from pypdf import PdfReader; r = PdfReader\\(r'C:\\\\Users\\\\estel\\\\Downloads\\\\Agregar algo de texto.pdf'\\); [print\\(f'--- Pag {i+1} ---\\\\n', r.pages[i].extract_text\\(\\)\\) for i in range\\(min\\(5, len\\(r.pages\\)\\)\\)]\")",
+      "Bash(python -c ' *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(python -c \"import json; data=json.load\\(open\\('assets/content/recipes.json',encoding='utf-8'\\)\\); [print\\(r.get\\('name',''\\), '|', r.get\\('image',''\\)\\) for r in data]\")",
+      "Bash(python -c \"import json; data=json.load\\(open\\('assets/content/recipes.json',encoding='utf-8'\\)\\); [print\\(json.dumps\\(r, ensure_ascii=False\\)\\) for r in data]\")",
+      "Bash(python -c \"import subprocess; r=subprocess.run\\(['flutter','pub','deps'],capture_output=True,text=True,cwd='.'\\); print\\([l for l in r.stdout.split\\('\\\\n'\\) if 'share' in l.lower\\(\\)]\\)\")",
+      "Bash(cd \"C:\\\\Users\\\\estel\\\\Desktop\\\\Proyectos\\\\Develop\\\\Eira\\\\autocuidado_app\" && grep -r \"class SharePlus\\\\|static.*share\\\\|ShareResult\\\\|ShareParams\" \"C:\\\\Users\\\\estel\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\share_plus-10.1.4\\\\lib\\\\\" 2>/dev/null | head -10)"
     ]
   }
 }
